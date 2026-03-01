@@ -4,7 +4,7 @@ from typing import Any
 try:
     from src.types import NormalItem
 except Exception:
-    Item = None
+    NormalItem = None
 
 
 def _read(obj: Any, *names):
