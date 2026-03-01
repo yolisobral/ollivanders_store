@@ -12,10 +12,18 @@ class Interfaz():
         pass
 
 class Item:
-     def __init__(self, name, quality, sellIn):
+    def __init__(self, name, quality, sellIn):
         self.name = name
         self.quality = quality
         self.sellIn = sellIn
+
+    @property
+    def getQuality(self):
+        return self._quality
+
+    @getQuality.setter
+    def qualitySetter(self, quality):
+        self._quality = max(0, min(50, quality))
 
 class NormalItem(Interfaz,Item):
     pass
