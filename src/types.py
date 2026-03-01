@@ -26,10 +26,25 @@ class Item:
         self._quality = max(0, min(50, quality))
 
 class NormalItem(Interfaz,Item):
-    pass
+    def setSellIn(self,quantity):
+        self.sellIn -= quantity
     
+    def setQuality(self,quantity):
+        self.quality -= quantity
+
+    def updateQuality(self):
+        self.setSellIn(1)
+        if self.sellIn < 0:
+            self.setQuality(2)
+        else:
+            self.setQuality(1)
+
 class Sulfuras(NormalItem):
-    pass
+       def __init__(self):
+        self.name = "Sulfuras"
+        self.quality = 80
+        self.sellIn = 0
+        
 class Conjured(NormalItem):
     pass
 class Backstage(NormalItem):
