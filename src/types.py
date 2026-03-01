@@ -1,4 +1,4 @@
-class Ollivanders():
+class Ollivander:
 
     def __init__(self):
         self.items = []
@@ -7,7 +7,7 @@ class Ollivanders():
         for item in self.items:
             item.updateQuality()
 
-    def addItem(self,item):
+    def addItem(self, item):
         self.items.append(item)
 
     def toString(self):
@@ -24,29 +24,37 @@ class Ollivanders():
             item.updateQuality()
             print(item.toString())
     
-class Interfaz():
+
+class Interfaz:
     def updateQuality(self):
         pass
 
+
 class Item:
-    def __init__(self, name, quality, sellIn):
+    def __init__(self, name, sellIn, quality):
         self.name = name
-        self.quality = quality
         self.sellIn = sellIn
+        # use setter to enforce bounds
+        self.quality = quality
 
     @property
-    def getQuality(self):
+    def quality(self):
         return self._quality
 
-    @getQuality.setter
-    def qualitySetter(self, quality):
+    @quality.setter
+    def quality(self, quality):
         self._quality = max(0, min(50, quality))
 
-class NormalItem(Interfaz,Item):
+    # convenience method to match test expectations
+    def getQuality(self):
+        return self.quality
+
+class NormalItem(Interfaz, Item):
     def setSellIn(self):
         self.sellIn -= 1
 
-    def setQuality(self,quantity):
+    def setQuality(self, quantity):
+        # decreasing quality means subtracting, so positive quantity reduces
         self.quality -= quantity
         
     def updateQuality(self):
@@ -65,9 +73,11 @@ class NormalItem(Interfaz,Item):
     def toString(self):
         return f'name= {self.name}, sell_in= {self.sellIn}, quality= {self.quality}'
 
-class Sulfuras(NormalItem):
+
+class Sulfuras(Interfaz):
     def __init__(self):
         self.name = "Sulfuras, Hand of Ragnaros"
+        # Sulfuras quality is fixed at 80 and never changes
         self.quality = 80
         self.sellIn = 0
 
@@ -80,17 +90,19 @@ class Sulfuras(NormalItem):
     def toString(self):
         return f'name= {self.name}, sell_in= {self.sellIn}, quality= {self.quality}'
 
+
 class Conjured(NormalItem):
     def updateQuality(self):
-        self.setSellIn(1)
+        self.setSellIn()
         if self.sellIn > 0:
             self.setQuality(2)
         else:
             self.setQuality(4)
 
+
 class Backstage(NormalItem):
     def updateQuality(self):
-        self.setSellIn(1)
+        self.setSellIn()
         if self.sellIn <= 0:
             self.quality = 0
         elif self.sellIn < 5:
@@ -100,6 +112,7 @@ class Backstage(NormalItem):
         else:
             self.setQuality(-1)
             
+
 class AgedBrie(NormalItem):
     def updateQuality(self):
         self.setSellIn()
