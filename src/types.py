@@ -43,18 +43,27 @@ class Item:
         self._quality = max(0, min(50, quality))
 
 class NormalItem(Interfaz,Item):
-    def setSellIn(self,quantity):
-        self.sellIn -= quantity
-    
+    def setSellIn(self):
+        self.sellIn -= 1
+
     def setQuality(self,quantity):
         self.quality -= quantity
-
+        
     def updateQuality(self):
-        self.setSellIn(1)
-        if self.sellIn < 0:
-            self.setQuality(2)
-        else:
+        self.setSellIn()
+        if self.sellIn > 0:
             self.setQuality(1)
+        else:
+            self.setQuality(2)
+
+    def get_quality(self):
+        return self.quality
+
+    def get_sell_in(self):
+        return self.sellIn
+        
+    def toString(self):
+        return f'name= {self.name}, sell_in= {self.sellIn}, quality= {self.quality}'
 
 class Sulfuras(NormalItem):
     def __init__(self):
