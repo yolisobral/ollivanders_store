@@ -61,7 +61,7 @@ class Conjured(NormalItem):
             self.setQuality(2)
         else:
             self.setQuality(4)
-            
+
 class Backstage(NormalItem):
     def updateQuality(self):
         self.setSellIn(1)
@@ -75,4 +75,9 @@ class Backstage(NormalItem):
             self.setQuality(-1)
             
 class AgedBrie(NormalItem):
-    pass
+    def updateQuality(self):
+        self.setSellIn()
+        if self.sellIn > 0:
+            self.setQuality(-1)
+        else:
+            self.setQuality(-2)
