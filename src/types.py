@@ -40,13 +40,27 @@ class NormalItem(Interfaz,Item):
             self.setQuality(1)
 
 class Sulfuras(NormalItem):
-       def __init__(self):
-        self.name = "Sulfuras"
+    def __init__(self):
+        self.name = "Sulfuras, Hand of Ragnaros"
         self.quality = 80
         self.sellIn = 0
-        
+
+    def get_quality(self):
+        return self.quality
+
+    def get_sell_in(self):
+        return self.sellIn
+    
+    def toString(self):
+        return f'name= {self.name}, sell_in= {self.sellIn}, quality= {self.quality}'
+
 class Conjured(NormalItem):
-    pass
+    def updateQuality(self):
+        self.setSellIn(1)
+        if self.sellIn > 0:
+            self.setQuality(2)
+        else:
+            self.setQuality(4)
 class Backstage(NormalItem):
     pass
 class AgedBrie(NormalItem):
