@@ -1,4 +1,4 @@
-class OllivanderShop():
+class Ollivanders():
 
     def __init__(self,items):
         self.items = items
@@ -8,11 +8,15 @@ class OllivanderShop():
             item.updateQuality()
     
 class Interfaz():
-    pass
+    def updateQuality(self):
+        pass
+
 class Item:
     pass
+
 class NormalItem(Interfaz,Item):
     pass
+    
 class Sulfuras(NormalItem):
     pass
 class Conjured(NormalItem):
